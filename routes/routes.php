@@ -20,7 +20,7 @@ if(count($routesArray)==1){
 //Solicitud al API
 //http://localhost:81/nombreProyecto/controlador/accion/parametro
 if(count($routesArray)>1 && isset($_SERVER['REQUEST_METHOD'])){
-    $controller=$routesArray[3];
+    $controller=$routesArray[2];
     print_r($routesArray);
     $action="index";
     try {
