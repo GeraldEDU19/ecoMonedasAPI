@@ -21,7 +21,6 @@ if(count($routesArray)==1){
 //http://localhost:81/nombreProyecto/controlador/accion/parametro
 if(count($routesArray)>1 && isset($_SERVER['REQUEST_METHOD'])){
     $controller=$routesArray[2];
-    print_r($routesArray);
     $action="index";
     try {
         $response=new $controller();
@@ -74,7 +73,6 @@ if(count($routesArray)>1 && isset($_SERVER['REQUEST_METHOD'])){
     } catch (\Throwable $th) {
         $json=array(
             'status'=>404,
-            'test'=>"aaaaa",
             'result'=>$th
         );
         echo json_encode($json,

@@ -14,16 +14,20 @@ require_once "models/MySqlConnect.php";
 
 /***--- Agregar todos los modelos*/
 require_once "./models/RolModel.php";
-require_once "./models/DirectorModel.php";
-require_once "./models/GenreModel.php";
-require_once "./models/MovieModel.php";
-require_once "./models/ActorModel.php";
+
+// require_once "./models/DirectorModel.php";
+// require_once "./models/GenreModel.php";
+// require_once "./models/MovieModel.php";
+// require_once "./models/ActorModel.php";
 
 /***--- Agregar todos los controladores*/
-require_once "./controllers/DirectorController.php";
-require_once "./controllers/ActorController.php";
-require_once "./controllers/GenreController.php";
-require_once "./controllers/MovieController.php";
+// require_once "./controllers/DirectorController.php";
+// require_once "./controllers/ActorController.php";
+// require_once "./controllers/GenreController.php";
+// require_once "./controllers/MovieController.php";
+
+
+require_once "./controllers/RolController.php";
 
 //Enrutador
 //RoutesController.php

@@ -14,7 +14,7 @@ class MySqlConnect {
 		$this->username = 'root';
 		$this->password = '123456';
 		$this->host = 'localhost';
-		$this->dbname = 'moviedb';
+		$this->dbname = 'db_proyecto';
 	}
 	
 	/**

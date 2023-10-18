@@ -23,7 +23,7 @@ CREATE TABLE Usuarios (
 
 -- Crear la tabla Roles
 CREATE TABLE Roles (
-    RolID INT AUTO_INCREMENT PRIMARY KEY,
+    Id INT AUTO_INCREMENT PRIMARY KEY,
     NombreRol VARCHAR(50) NOT NULL
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE Usuario_Rol (
     RolID INT,
     PRIMARY KEY (UsuarioID, RolID),
     FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID),
-    FOREIGN KEY (RolID) REFERENCES Roles(RolID)
+    FOREIGN KEY (RolID) REFERENCES Roles(Id)
 );
 
 -- Crear la tabla CentrosDeAcopio

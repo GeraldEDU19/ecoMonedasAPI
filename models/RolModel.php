@@ -9,7 +9,7 @@ class RolModel{
     public function all(){
         try {
             //Consulta sql
-			$vSql = "SELECT * FROM rol;";
+			$vSql = "SELECT * FROM Roles;";
 			
             //Ejecutar la consulta
 			$vResultado = $this->enlace->ExecuteSQL ( $vSql);
@@ -22,9 +22,9 @@ class RolModel{
     }
 
     public function get($id){
-        try {
+    try {   
             //Consulta sql
-			$vSql = "SELECT * FROM rol where id=$id";
+			$vSql = "SELECT * FROM Roles where Id=$id";
 			
             //Ejecutar la consulta
 			$vResultado = $this->enlace->ExecuteSQL ( $vSql);
@@ -34,17 +34,30 @@ class RolModel{
 			die ( $e->getMessage () );
 		}
     }
-    public function getRolUser($idUser){
+    public function getRolUser($id){
         try {
             //Consulta sql
 			$vSql = "SELECT r.id,r.name
             FROM rol r,user u 
-            where r.id=u.rol_id and u.id=$idUser";
+            where r.id=u.Id and u.id=$id";
 			
             //Ejecutar la consulta
 			$vResultado = $this->enlace->ExecuteSQL ( $vSql);
 			// Retornar el objeto
 			return $vResultado[0];
+		} catch ( Exception $e ) {
+			die ( $e->getMessage () );
+		}
+    }
+
+    public function create($objeto) {
+        try {
+			$sql = "Insert into Roles (NombreRol)". 
+                     "Values ('$objeto->NombreRol')";
+			
+			$idRol = $this->enlace->executeSQL_DML_last( $sql);
+
+            return $this->get($idRol);
 		} catch ( Exception $e ) {
 			die ( $e->getMessage () );
 		}
