@@ -14,6 +14,7 @@ require_once "models/MySqlConnect.php";
 
 /***--- Agregar todos los modelos*/
 require_once "./models/RolModel.php";
+require_once "./models/UsuarioModel.php";
 
 // require_once "./models/DirectorModel.php";
 // require_once "./models/GenreModel.php";
@@ -28,6 +29,7 @@ require_once "./models/RolModel.php";
 
 
 require_once "./controllers/RolController.php";
+require_once "./controllers/UsuarioController.php";
 
 //Enrutador
 //RoutesController.php
