@@ -86,3 +86,23 @@ VALUES ('Centro de Acopio 1', 'Provincia1', 'Canton1', 'Distrito1', 'Dirección 
 -- Insertar el segundo centro de acopio para el usuario con ID 2
 INSERT INTO CentrosDeAcopio (Nombre, DireccionProvincia, DireccionCanton, DireccionDistrito, DireccionExacta, Telefono, HorarioAtencion, AdministradorID)
 VALUES ('Centro de Acopio 2', 'Provincia2', 'Canton2', 'Distrito2', 'Dirección 2', '987-654-3210', 'Horario2', 2);
+
+
+
+/**************************************/
+/*Materiales*/
+
+INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
+VALUES ('Papel', 'Materiales Básicos', 'Material compuesto por fibras vegetales generalmente derivadas de la celulosa de la madera.', 'papel.png', 'KG', '#C1BEF0', 5.99);
+
+INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
+VALUES ('Cartón', 'Materiales Básicos', 'Material similar al papel, pero más grueso y resistente, comúnmente utilizado en envases y embalajes.', 'carton.png', 'KG', '#FC7A00', 7.50);
+
+INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
+VALUES ('Plástico', 'Materiales Básicos', 'Material polimérico derivado del petróleo o de fuentes renovables, ampliamente utilizado en envases.', 'plastico.png', 'KG', '#BEDAF0', 3.25);
+
+INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
+VALUES ('Chatarra', 'Desarmables y Metales', 'Residuos metálicos diversos provenientes de objetos desechados, listos para el reciclaje.', 'chatarra.png', 'KG', '#95FC00', 4.75);
+
+INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
+VALUES ('Aparatos eléctricos y electrónicos', 'Desarmables y Metales', 'Dispositivos electrónicos en desuso que contienen valiosos materiales metálicos y componentes para reciclar.', 'aparatoselectronicos.png', 'Unidad', '#F9FC00 ', 12.00);

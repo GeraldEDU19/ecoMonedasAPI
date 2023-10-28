@@ -54,25 +54,20 @@ CREATE TABLE CentrosDeAcopio (
 
 );
 
--- -- Crear la tabla MaterialesReciclables
+-- -- Crear la tabla Materiales
 
--- CREATE TABLE MaterialesReciclables (
+CREATE TABLE Materiales (
 
---     MaterialID INT AUTO_INCREMENT PRIMARY KEY,
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(255) NOT NULL,
+    Tipo VARCHAR(255) NOT NULL,
+    Descripcion TEXT,
+    Imagen VARCHAR(255),
+    UnidadMedida VARCHAR(50),
+    Color VARCHAR(20),
+    Precio DECIMAL(10, 2) NOT NULL
 
---     Nombre VARCHAR(255) NOT NULL,
-
---     Descripcion TEXT,
-
---     Imagen VARCHAR(255),
-
---     UnidadMedida VARCHAR(50),
-
---     Color VARCHAR(20),
-
---     Precio DECIMAL(10, 2) NOT NULL
-
--- );
+);
 
 -- -- Crear la tabla MaterialesCentroAcopio para relacionar MaterialesReciclables y CentrosDeAcopio
 
