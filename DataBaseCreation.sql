@@ -51,7 +51,6 @@ CREATE TABLE CentrosDeAcopio (
     HorarioAtencion VARCHAR(255),
     AdministradorID INT UNIQUE,
     FOREIGN KEY (AdministradorID) REFERENCES Usuarios(ID)
-
 );
 
 -- -- Crear la tabla Materiales
@@ -69,69 +68,48 @@ CREATE TABLE Materiales (
 
 );
 
--- -- Crear la tabla MaterialesCentroAcopio para relacionar MaterialesReciclables y CentrosDeAcopio
+-- Crear la tabla MaterialesCentroAcopio para relacionar MaterialesReciclables y CentrosDeAcopio
 
--- CREATE TABLE MaterialesCentroAcopio (
+CREATE TABLE MaterialesCentroAcopio (
 
---     CentroDeAcopioID INT,
+    CentroDeAcopioID INT,
 
---     MaterialID INT,
+    MaterialID INT,
 
---     PRIMARY KEY (CentroDeAcopioID, MaterialID),
+    PRIMARY KEY (CentroDeAcopioID, MaterialID),
 
---     FOREIGN KEY (CentroDeAcopioID) REFERENCES CentrosDeAcopio(CentroDeAcopioID),
+    FOREIGN KEY (CentroDeAcopioID) REFERENCES CentrosDeAcopio(ID),
 
---     FOREIGN KEY (MaterialID) REFERENCES MaterialesReciclables(MaterialID)
+    FOREIGN KEY (MaterialID) REFERENCES Materiales(ID)
 
--- );
+);
 
--- -- Crear la tabla CanjesMateriales
+-- Crear la tabla CanjesMateriales
 
--- CREATE TABLE CanjesMateriales (
+CREATE TABLE CanjesMateriales (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    ClienteID INT,
+    CentroDeAcopioID INT,
+    FechaCanje DATE,
+    TotalEcoMonedas DECIMAL(10, 2),
+    FOREIGN KEY (ClienteID) REFERENCES Usuarios(ID),
+    FOREIGN KEY (CentroDeAcopioID) REFERENCES CentrosDeAcopio(ID)
+);
 
---     CanjeID INT AUTO_INCREMENT PRIMARY KEY,
+-- Crear la tabla DetalleCanjeMateriales para registrar los materiales en cada canje
 
---     ClienteID INT,
+CREATE TABLE DetalleCanjesMateriales (
+    CanjeID INT,
+    MaterialID INT,
+    Cantidad INT,
+    SubTotalEcoMonedas DECIMAL(10, 2),
+    FOREIGN KEY (CanjeID) REFERENCES CanjesMateriales(ID),
+    FOREIGN KEY (MaterialID) REFERENCES Materiales(ID)
+);
 
---     CentroDeAcopioID INT,
 
---     FechaCanje DATE,
 
---     TotalEcoMonedas DECIMAL(10, 2),
 
---     FOREIGN KEY (ClienteID) REFERENCES Usuarios(UsuarioID),
-
---     FOREIGN KEY (CentroDeAcopioID) REFERENCES CentrosDeAcopio(CentroDeAcopioID)
-
--- );
-
--- -- Crear la tabla DetalleCanjeMateriales para registrar los materiales en cada canje
-
--- CREATE TABLE DetalleCanjeMateriales (
-
---     CanjeID INT,
-
---     MaterialID INT,
-
---     Cantidad INT,
-
---     FOREIGN KEY (CanjeID) REFERENCES CanjesMateriales(CanjeID),
-
---     FOREIGN KEY (MaterialID) REFERENCES MaterialesReciclables(MaterialID)
-
--- );
-
--- -- Crear la tabla HistorialCanjesMateriales
-
--- CREATE TABLE HistorialCanjesMateriales (
-
---     CanjeID INT,
-
---     -- Otras columnas relevantes para el historial
-
---     FOREIGN KEY (CanjeID) REFERENCES CanjesMateriales(CanjeID)
-
--- );
 
 -- -- Crear la tabla CuponesCanje
 

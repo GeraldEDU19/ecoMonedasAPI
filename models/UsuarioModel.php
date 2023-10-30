@@ -24,7 +24,7 @@ class UsuarioModel{
     public function get($id){
     try {   
             //Consulta sql
-			$vSql = "SELECT * FROM Roles where Id=$id";
+			$vSql = "SELECT * FROM Usuarios where ID=$id";
 			
             //Ejecutar la consulta
 			$vResultado = $this->enlace->ExecuteSQL ( $vSql);

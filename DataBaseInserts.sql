@@ -106,3 +106,74 @@ VALUES ('Chatarra', 'Desarmables y Metales', 'Residuos metálicos diversos prove
 
 INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
 VALUES ('Aparatos eléctricos y electrónicos', 'Desarmables y Metales', 'Dispositivos electrónicos en desuso que contienen valiosos materiales metálicos y componentes para reciclar.', 'aparatoselectronicos.png', 'Unidad', '#F9FC00 ', 12.00);
+
+
+
+
+
+
+/**************************************/
+/*MaterialesCentroDeAcopio*/
+
+
+INSERT INTO MaterialesCentroAcopio (CentroDeAcopioID, MaterialID) VALUES (1, 1);
+INSERT INTO MaterialesCentroAcopio (CentroDeAcopioID, MaterialID) VALUES (1, 2);
+INSERT INTO MaterialesCentroAcopio (CentroDeAcopioID, MaterialID) VALUES (1, 3);
+
+-- Asociar materiales al Centro de Acopio 2
+INSERT INTO MaterialesCentroAcopio (CentroDeAcopioID, MaterialID) VALUES (2, 4);
+INSERT INTO MaterialesCentroAcopio (CentroDeAcopioID, MaterialID) VALUES (2, 5);
+
+
+
+
+
+
+/**************************************/
+/*Canjes de Materiales*/
+
+INSERT INTO CanjesMateriales (ClienteID, CentroDeAcopioID, FechaCanje, TotalEcoMonedas) 
+VALUES (1, 1, '2023-10-15', 30.50);
+
+INSERT INTO CanjesMateriales (ClienteID, CentroDeAcopioID, FechaCanje, TotalEcoMonedas) 
+VALUES (2, 2, '2023-10-16', 45.25);
+
+INSERT INTO CanjesMateriales (ClienteID, CentroDeAcopioID, FechaCanje, TotalEcoMonedas) 
+VALUES (1, 2, '2023-10-18', 27.75);
+
+INSERT INTO CanjesMateriales (ClienteID, CentroDeAcopioID, FechaCanje, TotalEcoMonedas) 
+VALUES (2, 1, '2023-10-19', 33.60);
+
+INSERT INTO CanjesMateriales (ClienteID, CentroDeAcopioID, FechaCanje, TotalEcoMonedas) 
+VALUES (2,2, '2023-10-20', 50.00);
+
+-- Inserts para DetalleCanjesMateriales
+INSERT INTO DetalleCanjesMateriales (CanjeID, MaterialID, Cantidad, SubTotalEcoMonedas)
+VALUES (1, 1, 5, 15.50);
+
+INSERT INTO DetalleCanjesMateriales (CanjeID, MaterialID, Cantidad, SubTotalEcoMonedas)
+VALUES (1, 2, 10, 10.00);
+
+INSERT INTO DetalleCanjesMateriales (CanjeID, MaterialID, Cantidad, SubTotalEcoMonedas)
+VALUES (1, 3, 3, 5.00);
+
+INSERT INTO DetalleCanjesMateriales (CanjeID, MaterialID, Cantidad, SubTotalEcoMonedas)
+VALUES (2, 4, 8, 20.00);
+
+INSERT INTO DetalleCanjesMateriales (CanjeID, MaterialID, Cantidad, SubTotalEcoMonedas)
+VALUES (2, 5, 5, 25.25);
+
+INSERT INTO DetalleCanjesMateriales (CanjeID, MaterialID, Cantidad, SubTotalEcoMonedas)
+VALUES (3, 1, 4, 12.00);
+
+INSERT INTO DetalleCanjesMateriales (CanjeID, MaterialID, Cantidad, SubTotalEcoMonedas)
+VALUES (3, 2, 7, 14.00);
+
+INSERT INTO DetalleCanjesMateriales (CanjeID, MaterialID, Cantidad, SubTotalEcoMonedas)
+VALUES (4, 3, 5, 8.75);
+
+INSERT INTO DetalleCanjesMateriales (CanjeID, MaterialID, Cantidad, SubTotalEcoMonedas)
+VALUES (4, 4, 10, 24.50);
+
+INSERT INTO DetalleCanjesMateriales (CanjeID, MaterialID, Cantidad, SubTotalEcoMonedas)
+VALUES (1, 1, 15, 30.50);

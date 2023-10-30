@@ -17,6 +17,8 @@ require_once "./models/RolModel.php";
 require_once "./models/UsuarioModel.php";
 require_once "./models/MaterialModel.php";
 require_once "./models/CentroAcopioModel.php";
+require_once "./models/CanjesMaterialesModel.php";
+require_once "./models/DetalleCanjesMaterialesModel.php";
 
 // require_once "./models/DirectorModel.php";
 // require_once "./models/GenreModel.php";
@@ -34,6 +36,7 @@ require_once "./controllers/RolController.php";
 require_once "./controllers/UsuarioController.php";
 require_once "./controllers/MaterialController.php";
 require_once "./controllers/CentroAcopioController.php";
+require_once "./controllers/CanjesMaterialesController.php";
 //Enrutador
 //RoutesController.php
 require_once "./controllers/RoutesController.php";

@@ -1,5 +1,5 @@
 <?php
-class MaterialModel{
+class CanjesMaterialesModel{
     public $enlace;
     public function __construct() {
         
@@ -9,7 +9,7 @@ class MaterialModel{
     public function all(){
         try {
             //Consulta sql
-			$vSql = "SELECT * FROM Materiales;";
+			$vSql = "SELECT * FROM CanjesMateriales;";
 			
             //Ejecutar la consulta
 			$vResultado = $this->enlace->ExecuteSQL ( $vSql);
@@ -24,37 +24,45 @@ class MaterialModel{
     public function get($id){
         try {
             //Consulta sql
-			$vSql = "SELECT * FROM Material where id=$id";
+			$vSql = "SELECT * FROM CanjesMateriales where id=$id";
 			
             //Ejecutar la consulta
 			$vResultado = $this->enlace->ExecuteSQL ( $vSql);
+
+            $vResultado = $this->setDetailCanjesMateriales($vResultado[0]);
 			// Retornar el objeto
 			return $vResultado;
 		} catch ( Exception $e ) {
 			die ( $e->getMessage () );
 		}
     }
-    public function getMaterialByCetroDeAcopio($idCentroAcopio){
-        try {
-            //Consulta sql
-			$vSql = "SELECT *
-            FROM Materiales m,MaterialesCentroAcopio mca
-            where mca.MaterialID=m.ID and mca.CentroDeAcopioID=$idCentroAcopio";
-			
-            //Ejecutar la consulta
-			$vResultado = $this->enlace->ExecuteSQL ( $vSql);
-			// Retornar el objeto
-			return $vResultado;
-		} catch ( Exception $e ) {
-			die ( $e->getMessage () );
-		}
+
+    public function setDetailCanjesMateriales($canjeMateriales){
+
+        $usuarioModel = new UsuarioModel();
+        $canjeMateriales->Cliente = $usuarioModel->get($canjeMateriales->ClienteID);
+
+        $centroAcopio = new CentroAcopioModel();
+        $canjeMateriales->CentroDeAcopio = $centroAcopio->get($canjeMateriales->CentroDeAcopioID);
+
+
+        $detalleCanjesMaterialesModel = new DetalleCanjesMaterialesModel();
+        $canjeMateriales->detalles = $detalleCanjesMaterialesModel->getDetalleByCanjeMateriales($canjeMateriales->ID);
+
+
+        return $canjeMateriales;
+
     }
+
+
+
+ 
 	public function create($objeto) {
         try {
             //Consulta sql
             //Identificador autoincrementable
             
-			$vSql = "Insert into Material (title) Values ('$objeto->title')";
+			$vSql = "Insert into genre (title) Values ('$objeto->title')";
 			
             //Ejecutar la consulta
 			$vResultado = $this->enlace->executeSQL_DML_last( $vSql);
@@ -67,7 +75,7 @@ class MaterialModel{
     public function update($objeto) {
         try {
             //Consulta sql
-			$vSql = "Update Material SET title ='$objeto->title' Where id=$objeto->id";
+			$vSql = "Update genre SET title ='$objeto->title' Where id=$objeto->id";
 			
             //Ejecutar la consulta
 			$vResultado = $this->enlace->executeSQL_DML( $vSql);

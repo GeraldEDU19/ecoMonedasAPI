@@ -30,9 +30,9 @@ class Usuario
     public function get($id)
     {
         //Instancia del modelo
-        $rol = new RolModel();
+        $usuario = new UsuarioModel();
         //Acción del modelo a ejecutar
-        $response = $rol->get($id);
+        $response = $usuario->get($id);
         //Verificar respuesta
         if (isset($response) && !empty($response)) {
             //Armar el JSON respuesta satisfactoria

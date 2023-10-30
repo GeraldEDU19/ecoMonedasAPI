@@ -1,18 +1,13 @@
 <?php
 //class Genre
-class CentroAcopio{
+class CanjesMateriales{
     //Listar en el API
     public function index(){
-        //Obtener el listado del Modelo
-        $CentroAcopio=new CentroAcopioModel();
-        $response=$CentroAcopio->all();
+        $canjeMaterialesModel=new CanjesMaterialesModel();
+        $response=$canjeMaterialesModel->all();
         //Si hay respuesta
         if(isset($response) && !empty($response)){
             //Armar el json
-
-            //Recorrer el array
-
-
             $json=array(
                 'status'=>200,
                 'results'=>$response
@@ -27,10 +22,10 @@ class CentroAcopio{
                 http_response_code($json["status"])
             );
     }
-    public function get($id){
+    public function get($Id){
         
-        $centroAcopio=new CentroAcopioModel();
-        $response=$centroAcopio->get($id);
+        $canjesMateriales =new CanjesMaterialesModel();
+        $response=$canjesMateriales->get($Id);
         $json=array(
             'status'=>200,
             'results'=>$response
@@ -39,6 +34,9 @@ class CentroAcopio{
         http_response_code($json["status"]));
         
     }
+
+
+    
     public function getGenreMovie($id){
         $genero=new GenreModel();
         $response=$genero->getGenreMovie($id);
