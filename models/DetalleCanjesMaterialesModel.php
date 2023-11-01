@@ -32,13 +32,15 @@ class DetalleCanjesMaterialesModel
 
             //Ejecutar la consulta
             $vResultado = $this->enlace->ExecuteSQL($vSql);
+
+
             // Retornar el objeto
             return $vResultado;
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    public function getDetalleByCanjeMateriales($idCanjeMaterial)
+    public function  getDetalleByCanjeMateriales($idCanjeMaterial)
     {
         try {
             $vSql = "SELECT *
@@ -46,15 +48,27 @@ class DetalleCanjesMaterialesModel
             WHERE CanjeID = $idCanjeMaterial;
             ";
 
-        
-
             $vResultado = $this->enlace->ExecuteSQL($vSql);
+            if (!empty($vResultado)) foreach ($vResultado as &$element) $element = $this->setDetailDetalleCanjesMateriales($element);
             // Retornar el objeto
             return $vResultado;
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
+
+
+
+    public function setDetailDetalleCanjesMateriales($detalleCanjeMaterial){
+
+        $modelMaterial = new MaterialModel();
+        $detalleCanjeMaterial->Material = $modelMaterial->get($detalleCanjeMaterial->MaterialID) ;
+
+        return $detalleCanjeMaterial;
+    }
+
+
+
     public function create($objeto)
     {
         try {

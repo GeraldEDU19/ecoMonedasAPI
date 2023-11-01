@@ -24,7 +24,7 @@ class MaterialModel{
     public function get($id){
         try {
             //Consulta sql
-			$vSql = "SELECT * FROM Material where id=$id";
+			$vSql = "SELECT * FROM Materiales where ID=$id";
 			
             //Ejecutar la consulta
 			$vResultado = $this->enlace->ExecuteSQL ( $vSql);

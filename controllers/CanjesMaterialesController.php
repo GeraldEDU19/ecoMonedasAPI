@@ -34,7 +34,28 @@ class CanjesMateriales{
         http_response_code($json["status"]));
         
     }
+    public function getByClienteID($ID){
+        $canjesMateriales =new CanjesMaterialesModel();
+        $response=$canjesMateriales->getByClienteID($ID);
+        $json=array(
+            'status'=>200,
+            'results'=>$response
+        );
+       echo json_encode($json,
+        http_response_code($json["status"])); 
+    }
 
+
+    public function getByAdministradorID($ID){
+        $canjesMateriales =new CanjesMaterialesModel();
+        $response=$canjesMateriales->getByAdministradorID($ID);
+        $json=array(
+            'status'=>200,
+            'results'=>$response
+        );
+       echo json_encode($json,
+        http_response_code($json["status"])); 
+    }
 
     
     public function getGenreMovie($id){

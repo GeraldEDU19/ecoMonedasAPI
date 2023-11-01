@@ -34,6 +34,24 @@ class UsuarioModel{
 			die ( $e->getMessage () );
 		}
     }
+
+    public function getAllAdministradores($ID){
+        try {   
+                //Consulta sql
+                $vSql = "SELECT Usuarios.*
+                FROM Usuarios
+                JOIN Roles ON Usuarios.RolId = Roles.id
+                WHERE Roles.nombre = 'Administrador';";
+                
+                //Ejecutar la consulta
+                $vResultado = $this->enlace->ExecuteSQL ( $vSql);
+                // Retornar el objeto
+                return $vResultado;
+            } catch ( Exception $e ) {
+                die ( $e->getMessage () );
+            }
+        }
+
     public function getRolUser($id){
         try {
             //Consulta sql
