@@ -1,11 +1,11 @@
 <?php
-//class Genre
-class material{
+//class Director
+class director{
     //Listar en el API
     public function index(){
         //Obtener el listado del Modelo
-        $Material=new MaterialModel();
-        $response=$Material->all();
+        $genero=new DirectorModel();
+        $response=$genero->all();
         //Si hay respuesta
         if(isset($response) && !empty($response)){
             //Armar el json
@@ -25,15 +25,26 @@ class material{
     }
     public function get($param){
         
-        $Material=new MaterialModel();
-        $response=$Material->get($param);
+        $genero=new DirectorModel();
+        $response=$genero->get($param);
         $json=array(
             'status'=>200,
             'results'=>$response
         );
-       echo json_encode($json,
-        http_response_code($json["status"]));
+        if(isset($response) && !empty($response)){
+            $json=array(
+                'status'=>200,
+                'results'=>$response
+            );
+        }else{
+            $json=array(
+                'status'=>400,
+                'results'=>"No existe el director"
+            );
+        }
+        echo json_encode($json,
+                http_response_code($json["status"])
+            );
         
     }
- 
 }
