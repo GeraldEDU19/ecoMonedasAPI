@@ -57,7 +57,8 @@ class MaterialModel{
 			$vSql = "Insert into Material (title) Values ('$objeto->title')";
 			
             //Ejecutar la consulta
-			$vResultado = $this->enlace->executeSQL_DML_last( $vSql);
+			// $vResultado = $this->enlace->executeSQL_DML_last( $vSql);
+			$vResultado = $vSql;
 			// Retornar el objeto creado
             return $this->get($vResultado);
 		} catch ( Exception $e ) {
@@ -77,4 +78,7 @@ class MaterialModel{
 			die ( $e->getMessage () );
 		}
     }
+
+
+	
 }
