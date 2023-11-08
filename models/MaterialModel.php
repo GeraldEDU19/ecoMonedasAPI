@@ -54,7 +54,7 @@ class MaterialModel{
             //Consulta sql
             //Identificador autoincrementable
             
-			$vSql = "Insert into Material (title) Values ('$objeto->title')";
+			$vSql = "Insert into Material (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio) Values ('$objeto->Nombre','$objeto->Tipo','$objeto->Imagen','$objeto-> UnidadMedida','$objeto->Color','$objeto->Precio')";
 			
             //Ejecutar la consulta
 			// $vResultado = $this->enlace->executeSQL_DML_last( $vSql);
