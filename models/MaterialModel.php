@@ -57,8 +57,8 @@ class MaterialModel{
 			$vSql = "Insert into Material (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio) Values ('$objeto->Nombre','$objeto->Tipo','$objeto->Imagen','$objeto-> UnidadMedida','$objeto->Color','$objeto->Precio')";
 			
             //Ejecutar la consulta
-			// $vResultado = $this->enlace->executeSQL_DML_last( $vSql);
-			$vResultado = $vSql;
+			$vResultado = $this->enlace->executeSQL_DML_last( $vSql);
+			
 			// Retornar el objeto creado
             return $this->get($vResultado);
 		} catch ( Exception $e ) {
