@@ -50,21 +50,26 @@ class MaterialModel{
 		}
     }
 	public function create($objeto) {
-        try {
-            //Consulta sql
-            //Identificador autoincrementable
-            
-			$vSql = "Insert into Material (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio) Values ('$objeto->Nombre','$objeto->Tipo','$objeto->Imagen','$objeto-> UnidadMedida','$objeto->Color','$objeto->Precio')";
-			
-            //Ejecutar la consulta
-			$vResultado = $this->enlace->executeSQL_DML_last( $vSql);
-			
-			// Retornar el objeto creado
-            return $this->get($vResultado);
-		} catch ( Exception $e ) {
-			die ( $e->getMessage () );
+		try {
+			// Manually construct the query
+			$vSql = "INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio) VALUES ('" . 
+					$objeto->Nombre . "','" . 
+					$objeto->Tipo . "','" . 
+					$objeto->Descripcion . "','" . 
+					$objeto->Imagen . "','" . 
+					$objeto->UnidadMedida . "','" . 
+					$objeto->Color . "','" . 
+					$objeto->Precio . "')";
+	
+			// Execute the query
+			$vResultado = $this->enlace->executeSQL_DML_last($vSql);
+	
+			// Return the created object
+			return $this->get($vResultado);
+		} catch (Exception $e) {
+			die($e->getMessage());
 		}
-    }
+	}
     public function update($objeto) {
         try {
             //Consulta sql
