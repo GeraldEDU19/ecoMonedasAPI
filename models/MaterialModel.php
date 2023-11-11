@@ -60,11 +60,9 @@ class MaterialModel{
 					$objeto->UnidadMedida . "','" . 
 					$objeto->Color . "','" . 
 					$objeto->Precio . "')";
-	
-			// Execute the query
+
 			$vResultado = $this->enlace->executeSQL_DML_last($vSql);
-	
-			// Return the created object
+
 			return $this->get($vResultado);
 		} catch (Exception $e) {
 			die($e->getMessage());

@@ -45,40 +45,38 @@ class material
 
     public function create()
     {
-         //Obtener json enviado
-         $inputJSON = file_get_contents('php://input');
-         //Decodificar json
-         $object = json_decode($inputJSON);
-         //Instancia del modelo
-         $material = new MaterialModel();
-         //Acción del modelo a ejecutar
-         $response = $material->create($object);
-         //Verificar respuesta
-         if (isset($response) && !empty($response)) {
-             $json = array(
-                 'status' => 200,
-                 'results' => 'Material creado'
-             );
-         } else {
-             $json = array(
-                 'status' => 400,
-                 'results' => "No se creo el recurso"
-             );
-         }
-         //Escribir respuesta JSON con código de estado HTTP
-         echo json_encode(
-             $json,
-             http_response_code($json["status"])
-         );
-       /*  if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        //  //Obtener json enviado
+        //  $inputJSON = file_get_contents('php://input');
+        //  //Decodificar json
+        //  $object = json_decode($inputJSON);
+        //  //Instancia del modelo
+        //  $material = new MaterialModel();
+        //  //Acción del modelo a ejecutar
+        //  $response = $material->create($object);
+        //  //Verificar respuesta
+        //  if (isset($response) && !empty($response)) {
+        //      $json = array(
+        //          'status' => 200,
+        //          'results' => 'Material creado'
+        //      );
+        //  } else {
+        //      $json = array(
+        //          'status' => 400,
+        //          'results' => "No se creo el recurso"
+        //      );
+        //  }
+        //  //Escribir respuesta JSON con código de estado HTTP
+        //  echo json_encode(
+        //      $json,
+        //      http_response_code($json["status"])
+        //  );
+         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             // Obtener los datos de la imagen
             $fileTmpPath = $_FILES['imagen']['tmp_name'];
             $fileName = $_FILES['imagen']['name'];
 
-            // Obtener la extensión del archivo
             $extension = pathinfo($fileName, PATHINFO_EXTENSION);
 
-            // Definir la ruta de destino para guardar la imagen con el nombre 'test' y su extensión original
             $destination = __DIR__ . '/../assets/material_images/test.' . $extension;
 
             // Mover la imagen al directorio de destino
@@ -90,7 +88,6 @@ class material
                 );
                 echo json_encode($json, http_response_code($json["status"]));
             } else {
-                // Si hubo un problema al guardar la imagen, enviar una respuesta de error
                 $json = array(
                     'status' => 400,
                     'results' => "Hubo un error al guardar la imagen."
@@ -105,7 +102,7 @@ class material
             );
 
             echo json_encode($json, http_response_code($json["status"]));
-        } */
+        } 
     }
 
 
