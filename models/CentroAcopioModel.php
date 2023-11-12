@@ -99,19 +99,27 @@ class CentroAcopioModel
 	public function create($objeto)
 	{
 		try {
-			//Consulta sql
-			//Identificador autoincrementable
-
-			$vSql = "Insert into Material (title) Values ('$objeto->title')";
-
-			//Ejecutar la consulta
-			$vResultado = $this->enlace->executeSQL_DML_last($vSql);
-			// Retornar el objeto creado
-			return $this->get($vResultado);
+			// Crear el centro de acopio
+			$vSqlCentroAcopio = "INSERT INTO CentrosDeAcopio (Nombre, DireccionProvincia, DireccionCanton, DireccionDistrito, DireccionExacta, Telefono, HorarioAtencion, AdministradorID) VALUES ('$objeto->Nombre', '$objeto->DireccionProvincia', '$objeto->DireccionCanton', '$objeto->DireccionDistrito', '$objeto->DireccionExacta', '$objeto->Telefono', '$objeto->HorarioAtencion', $objeto->AdministradorID)";
+			
+	
+			// Obtener el ID del centro de acopio recién creado
+			$centroAcopioID = $this->enlace->executeSQL_DML_last($vSqlCentroAcopio);
+	
+			// Asociar materiales al centro de acopio
+			foreach ($objeto->Materiales as $material) {
+				$vSqlAsociacion = "INSERT INTO MaterialesCentroAcopio (CentroDeAcopioID, MaterialID) VALUES ($centroAcopioID, $material->ID)";
+				$this->enlace->executeSQL_DML($vSqlAsociacion);
+			}
+	
+			// Retornar el objeto creado (puedes adaptar esto según tus necesidades)
+			return $this->get($centroAcopioID);
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
 	}
+	
+
 	public function update($objeto)
 	{
 		try {

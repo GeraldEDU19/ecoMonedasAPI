@@ -82,12 +82,11 @@ class CentroAcopio{
     public function create( ){
         $inputJSON=file_get_contents('php://input');
         $object = json_decode($inputJSON); 
-        $genero=new GenreModel();
+        $genero=new CentroAcopioModel();
         $response=$genero->create($object);
         if(isset($response) && !empty($response)){
             $json=array(
                 'status'=>200,
-                'total'=>count($response),
                 'results'=>$response[0]
             );
         }else{
