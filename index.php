@@ -37,6 +37,7 @@ require_once "./controllers/UsuarioController.php";
 require_once "./controllers/MaterialController.php";
 require_once "./controllers/CentroAcopioController.php";
 require_once "./controllers/CanjesMaterialesController.php";
+require_once "./controllers/ImagenController.php";
 //Enrutador
 //RoutesController.php
 require_once "./controllers/RoutesController.php";

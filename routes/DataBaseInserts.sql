@@ -13,7 +13,6 @@ USE db_proyecto;
 INSERT INTO Roles (Nombre) VALUES ('Administrador');
 
 
-
 /**************************************/
 /*USUARIOS*/
 INSERT INTO
@@ -45,6 +44,8 @@ VALUES (
         'password123',
         1
     );
+
+
 
     INSERT INTO Usuarios (
     CorreoElectronico,

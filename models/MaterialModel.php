@@ -52,34 +52,37 @@ class MaterialModel{
 	public function create($objeto, $imagen) {
 		try {
 			$sigID = $this->obtenerSiguienteAutoincrementable();
-			
-			$imagenName = "Materiales_".$sigID;
-
-			
-
-			$imagenUploaded = $this->uploadImagen($imagen, $imagenName);
-			if ($imagenUploaded == false) { 
-				throw new Error("Hubo un problema al subir la imagen"); 
+			$imagenName = "Materiales_" . $sigID;
+	
+			// Obtiene la extensión de la imagen
+			$extension = pathinfo($imagen['name'], PATHINFO_EXTENSION);
+	
+			// Agrega la extensión al nombre de la imagen
+			$imagenNameWithExtension = $imagenName . '.' . $extension;
+	
+			$imagenUploaded = $this->uploadImagen($imagen, $imagenNameWithExtension);
+			if ($imagenUploaded == false) {
+				throw new Error("Hubo un problema al subir la imagen");
 			}
-
-			
-			$vSql = "INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio) VALUES ('" . 
-				$objeto['Nombre'] . "','" . 
-				$objeto['Tipo'] . "','" . 
-				$objeto['Descripcion'] . "','" . 
-				$imagenName . "','" . 
-				$objeto['UnidadMedida'] . "','" . 
-				$objeto['Color'] . "','" . 
+	
+			$vSql = "INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio) VALUES ('" .
+				$objeto['Nombre'] . "','" .
+				$objeto['Tipo'] . "','" .
+				$objeto['Descripcion'] . "','" .
+				$imagenNameWithExtension . "','" .
+				$objeto['UnidadMedida'] . "','" .
+				$objeto['Color'] . "','" .
 				$objeto['Precio'] . "')";
-
+	
 			$vResultado = $this->enlace->executeSQL_DML_last($vSql);
-
+	
 			return $vResultado;
-			
+	
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
 	}
+	
     public function update($objeto) {
         try {
             //Consulta sql
@@ -97,11 +100,8 @@ class MaterialModel{
 
 	public function uploadImagen($imagen, $imagenName) {
 			$fileTmpPath = $imagen['tmp_name'];
-            $fileName = $imagen['name'];
 
-            $extension = pathinfo($fileName, PATHINFO_EXTENSION);
-
-            $destination = __DIR__ . '/../assets/material_images/'.$imagenName.'.'. $extension;
+            $destination = __DIR__ . '/../assets/material_images/'.$imagenName;
 
             return move_uploaded_file($fileTmpPath, $destination);
 	}
