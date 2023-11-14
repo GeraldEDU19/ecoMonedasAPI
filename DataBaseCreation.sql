@@ -63,7 +63,7 @@ CREATE TABLE Materiales (
     Descripcion TEXT,
     Imagen VARCHAR(255),
     UnidadMedida VARCHAR(50),
-    Color VARCHAR(20),
+    Color VARCHAR(20) UNIQUE,
     Precio DECIMAL(10, 2) NOT NULL
 
 );

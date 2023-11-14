@@ -412,11 +412,6 @@ VALUES ('Chatarra', 'Desarmables y Metales', 'Residuos metálicos diversos prove
 INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
 VALUES ('Aparatos eléctricos y electrónicos', 'Desarmables y Metales', 'Dispositivos electrónicos en desuso que contienen valiosos materiales metálicos y componentes para reciclar.', 'aparatoselectronicos.png', 'Unidad', '#F9FC00 ', 12.00);
 
-
-
-
-
-
 /**************************************/
 /*MaterialesCentroDeAcopio*/
 

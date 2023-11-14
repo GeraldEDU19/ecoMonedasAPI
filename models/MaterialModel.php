@@ -49,21 +49,33 @@ class MaterialModel{
 			die ( $e->getMessage () );
 		}
     }
-	public function create($objeto) {
+	public function create($objeto, $imagen) {
 		try {
-			// Manually construct the query
+			$sigID = $this->obtenerSiguienteAutoincrementable();
+			
+			$imagenName = "Materiales_".$sigID;
+
+			
+
+			$imagenUploaded = $this->uploadImagen($imagen, $imagenName);
+			if ($imagenUploaded == false) { 
+				throw new Error("Hubo un problema al subir la imagen"); 
+			}
+
+			
 			$vSql = "INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio) VALUES ('" . 
-					$objeto->Nombre . "','" . 
-					$objeto->Tipo . "','" . 
-					$objeto->Descripcion . "','" . 
-					$objeto->Imagen . "','" . 
-					$objeto->UnidadMedida . "','" . 
-					$objeto->Color . "','" . 
-					$objeto->Precio . "')";
+				$objeto['Nombre'] . "','" . 
+				$objeto['Tipo'] . "','" . 
+				$objeto['Descripcion'] . "','" . 
+				$imagenName . "','" . 
+				$objeto['UnidadMedida'] . "','" . 
+				$objeto['Color'] . "','" . 
+				$objeto['Precio'] . "')";
 
 			$vResultado = $this->enlace->executeSQL_DML_last($vSql);
 
-			return $this->get($vResultado);
+			return $vResultado;
+			
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
@@ -81,6 +93,36 @@ class MaterialModel{
 			die ( $e->getMessage () );
 		}
     }
+
+
+	public function uploadImagen($imagen, $imagenName) {
+			$fileTmpPath = $imagen['tmp_name'];
+            $fileName = $imagen['name'];
+
+            $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+
+            $destination = __DIR__ . '/../assets/material_images/'.$imagenName.'.'. $extension;
+
+            return move_uploaded_file($fileTmpPath, $destination);
+	}
+
+	public function obtenerSiguienteAutoincrementable() {
+		$vSql = "SHOW TABLE STATUS LIKE 'Materiales'";
+		$resultado = $this->enlace->ExecuteSQL($vSql);
+	
+		if ($resultado && is_array($resultado) && count($resultado) > 0) {
+			// Asegurémonos de que $resultado es un array y tiene al menos un elemento
+			$fila = $resultado[0];
+			$numAutoIncrement = $fila->Auto_increment;
+			return $numAutoIncrement ; // Accede a la propiedad como un objeto
+		} else {
+			throw new Exception("Hubo un error con el autoIncrementable");
+		}
+	}
+	
+	
+	
+	
 
 
 	
