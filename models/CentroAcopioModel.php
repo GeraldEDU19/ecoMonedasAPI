@@ -121,17 +121,57 @@ class CentroAcopioModel
 	
 
 	public function update($objeto)
-	{
-		try {
-			//Consulta sql
-			$vSql = "Update Material SET title ='$objeto->title' Where id=$objeto->id";
+{
+    try {
+        //Consulta sql
+        $sql = "UPDATE CentrosDeAcopio SET 
+                Nombre ='$objeto->Nombre',
+                DireccionProvincia ='$objeto->DireccionProvincia',
+                DireccionCanton ='$objeto->DireccionCanton',
+                DireccionDistrito ='$objeto->DireccionDistrito',
+                DireccionExacta ='$objeto->DireccionExacta',
+                Telefono ='$objeto->Telefono',
+                HorarioAtencion ='$objeto->HorarioAtencion',
+                AdministradorID =$objeto->AdministradorID
+                WHERE id=$objeto->id";
 
-			//Ejecutar la consulta
-			$vResultado = $this->enlace->executeSQL_DML($vSql);
-			// Retornar el objeto actualizado
-			return $this->get($objeto->id);
-		} catch (Exception $e) {
-			die($e->getMessage());
-		}
-	}
+        //Ejecutar la consulta
+        $cResults = $this->enlace->executeSQL_DML($sql);
+
+        //--- Materiales ---
+        //Borrar materiales existentes asignados
+        $sql = "DELETE FROM MaterialesCentroAcopio WHERE CentroDeAcopioID=$objeto->id";
+        $cResults = $this->enlace->executeSQL_DML($sql);
+
+        //Crear elementos a insertar en materiales
+        foreach ($objeto->Materiales as $material) {
+            $dataMateriales[] = array($objeto->id, $material->ID);
+        }
+
+        foreach ($dataMateriales as $row) {
+            $valores = implode(',', $row);
+            $sql = "INSERT INTO MaterialesCentroAcopio(CentroDeAcopioID, MaterialID) VALUES(" . $valores . ");";
+            $vResultado = $this->enlace->executeSQL_DML($sql);
+        }
+
+        //Retornar centro de acopio
+        return $this->get($objeto->id);
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
+}
+public function getCentroAcopioById($id) {
+    try {
+        $result = null;
+        if (!empty($id)) {
+            $sql = "SELECT * FROM CentrosDeAcopio WHERE ID = $id";
+            $result = $this->enlace->executeSQL_DML($sql);
+        }
+        // Retornar el objeto
+        return $result;
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
+}
+
 }

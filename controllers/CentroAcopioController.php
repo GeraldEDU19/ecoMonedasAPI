@@ -59,9 +59,9 @@ class CentroAcopio{
                 http_response_code($json["status"])
             );
     }
-    public function getMoviesbyGenre($param){
-        $genero=new GenreModel();
-        $response=$genero->getMoviesbyGenre($param);
+    public function getCentroAcopioById($param){
+        $genero=new CentroAcopioModel();
+        $response=$genero->getCentroAcopioById($param);
         //Si hay respuesta
         if(isset($response) && !empty($response)){
             //Armar el json
@@ -103,7 +103,7 @@ class CentroAcopio{
     public function update(){
         $inputJSON=file_get_contents('php://input');
         $object = json_decode($inputJSON); 
-        $genero=new GenreModel();
+        $genero=new CentroAcopioModel();
         $response=$genero->update($object);
         if(isset($response) && !empty($response)){
             $json=array(
