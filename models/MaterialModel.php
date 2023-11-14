@@ -82,7 +82,23 @@ class MaterialModel{
 			die($e->getMessage());
 		}
 	}
-	
+	public function getMaterialCentroAcopioForm($idCentroAcopio)
+{
+    try {
+        //Consulta SQL
+        $vSQL = "SELECT mc.MaterialID, m.Nombre, m.Tipo, m.Descripcion, m.Imagen, m.UnidadMedida, m.Color, m.Precio".
+                " FROM MaterialesCentroAcopio mc, Materiales m".
+                " WHERE mc.MaterialID = m.ID AND mc.CentroDeAcopioID = $idCentroAcopio;";
+
+        //Ejecutar la consulta
+        $vResultado = $this->enlace->executeSQL($vSQL);
+        
+        //Retornar el resultado
+        return $vResultado;
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
+}
     public function update($objeto) {
         try {
             //Consulta sql
