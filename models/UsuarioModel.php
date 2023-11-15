@@ -52,6 +52,29 @@ class UsuarioModel{
             }
         }
 
+
+        public function getAllAdministradoresSinCentro($ID){
+            try {   
+                    //Consulta sql
+                    $vSql = "SELECT Usuarios.*
+                    FROM Usuarios
+                    JOIN Roles ON Usuarios.RolId = Roles.ID
+                    WHERE Roles.Nombre = 'Administrador'
+                    AND NOT EXISTS (
+                        SELECT 1
+                        FROM CentrosDeAcopio
+                        WHERE CentrosDeAcopio.AdministradorID = Usuarios.ID
+                    );";
+                                        
+                    //Ejecutar la consulta
+                    $vResultado = $this->enlace->ExecuteSQL ( $vSql);
+                    // Retornar el objeto
+                    return $vResultado;
+                } catch ( Exception $e ) {
+                    die ( $e->getMessage () );
+                }
+            }
+
     public function getRolUser($id){
         try {
             //Consulta sql

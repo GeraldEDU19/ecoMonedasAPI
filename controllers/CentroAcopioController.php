@@ -6,12 +6,7 @@ class CentroAcopio{
         //Obtener el listado del Modelo
         $CentroAcopio=new CentroAcopioModel();
         $response=$CentroAcopio->all();
-        //Si hay respuesta
         if(isset($response) && !empty($response)){
-            //Armar el json
-
-            //Recorrer el array
-
 
             $json=array(
                 'status'=>200,

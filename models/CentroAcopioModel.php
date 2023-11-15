@@ -111,7 +111,6 @@ class CentroAcopioModel
 
 			// Obtener el ID del centro de acopio recién creado
 			$centroAcopioID = $this->enlace->executeSQL_DML_last($vSqlCentroAcopio);
-
 			// Asociar materiales al centro de acopio
 			foreach ($objeto->Materiales as $material) {
 				$vSqlAsociacion = "INSERT INTO MaterialesCentroAcopio (CentroDeAcopioID, MaterialID) VALUES ($centroAcopioID, $material->ID)";
@@ -119,7 +118,7 @@ class CentroAcopioModel
 			}
 
 			// Retornar el objeto creado (puedes adaptar esto según tus necesidades)
-			return $this->get($centroAcopioID);
+			return $centroAcopioID;
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}

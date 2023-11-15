@@ -366,6 +366,19 @@ VALUES (
     2 -- ID del rol 'Cliente'
 );
 
+-- Insertar un usuario administrador
+INSERT INTO Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contraseña, RolId)
+VALUES ('admin@example2.com', 'Floriberto', '', 'Jimenez', '', '123456789', 'Provincia', 'Canton', 'Distrito', '1234567890', 'contrasena123', (SELECT ID FROM Roles WHERE Nombre = 'Administrador'));
+
+
+INSERT INTO Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contraseña, RolId)
+VALUES ('admin@example3.com', 'Angel', '', 'Prado', '', '123456789', 'Provincia', 'Canton', 'Distrito', '1234567890', 'contrasena123', (SELECT ID FROM Roles WHERE Nombre = 'Administrador'));
+
+
+
+-- Insertar un usuario no administrador
+INSERT INTO Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contraseña, RolId)
+VALUES ('usuario1@example.com', 'Usuario', '', 'Uno', '', '987654321', 'Provincia', 'Canton', 'Distrito', '9876543210', 'contrasena456', (SELECT ID FROM Roles WHERE Nombre = 'OtroRol'));
 
 
 /**************************************/
@@ -398,19 +411,19 @@ VALUES ('Centro de Acopio 7', 'Provincia7', 'Canton7', 'Distrito7', 'Dirección 
 /*Materiales*/
 
 INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
-VALUES ('Papel', 'Materiales Básicos', 'Material compuesto por fibras vegetales generalmente derivadas de la celulosa de la madera.', 'papel.png', 'KG', '#C1BEF0', 5.99);
+VALUES ('Papel', 'Materiales Básicos', 'Material compuesto por fibras vegetales generalmente derivadas de la celulosa de la madera.', 'Materiales_1.png', 'KG', '#C1BEF0', 5.99);
 
 INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
-VALUES ('Cartón', 'Materiales Básicos', 'Material similar al papel, pero más grueso y resistente, comúnmente utilizado en envases y embalajes.', 'carton.png', 'KG', '#FC7A00', 7.50);
+VALUES ('Cartón', 'Materiales Básicos', 'Material similar al papel, pero más grueso y resistente, comúnmente utilizado en envases y embalajes.', 'Materiales_2.png', 'KG', '#FC7A00', 7.50);
 
 INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
-VALUES ('Plástico', 'Materiales Básicos', 'Material polimérico derivado del petróleo o de fuentes renovables, ampliamente utilizado en envases.', 'plastico.png', 'KG', '#BEDAF0', 3.25);
+VALUES ('Plástico', 'Materiales Básicos', 'Material polimérico derivado del petróleo o de fuentes renovables, ampliamente utilizado en envases.', 'Materiales_3.png', 'KG', '#BEDAF0', 3.25);
 
 INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
-VALUES ('Chatarra', 'Desarmables y Metales', 'Residuos metálicos diversos provenientes de objetos desechados, listos para el reciclaje.', 'chatarra.png', 'KG', '#95FC00', 4.75);
+VALUES ('Chatarra', 'Desarmables y Metales', 'Residuos metálicos diversos provenientes de objetos desechados, listos para el reciclaje.', 'Materiales_4.png', 'KG', '#95FC00', 4.75);
 
 INSERT INTO Materiales (Nombre, Tipo, Descripcion, Imagen, UnidadMedida, Color, Precio)
-VALUES ('Aparatos eléctricos y electrónicos', 'Desarmables y Metales', 'Dispositivos electrónicos en desuso que contienen valiosos materiales metálicos y componentes para reciclar.', 'aparatoselectronicos.png', 'Unidad', '#F9FC00 ', 12.00);
+VALUES ('Aparatos eléctricos y electrónicos', 'Desarmables y Metales', 'Dispositivos electrónicos en desuso que contienen valiosos materiales metálicos y componentes para reciclar.', 'Materiales_5.png', 'Unidad', '#F9FC00 ', 12.00);
 
 /**************************************/
 /*MaterialesCentroDeAcopio*/
