@@ -1,10 +1,13 @@
 <?php
 //Clase Controlador Pelicula
+use Firebase\JWT\JWT;
 class Usuario
 {
+    private $secret_key = 'e0d17975bc9bd57eee132eecb6da6f11048e8a88506cc3bffc7249078cf2a77a';
     //GET Listar 
     public function index()
     {
+        
         //Instancia del modelo
         $usuario = new UsuarioModel();
         //Acción del modelo a ejecutar
@@ -136,62 +139,73 @@ class Usuario
         ); 
     }
     //POST Crear
-    public function create()
-    {
-        //Obtener json enviado
-        $inputJSON = file_get_contents('php://input');
-        //Decodificar json
-        $object = json_decode($inputJSON);
-        //Instancia del modelo
-        $rol = new RolModel();
-        //Acción del modelo a ejecutar
-        $response = $rol->create($object);
-        //Verificar respuesta
-        if (isset($response) && !empty($response)) {
-            $json = array(
-                'status' => 200,
-                'results' => 'Rol Creado'
+    public function login(){
+        
+        $inputJSON=file_get_contents('php://input');
+        $object = json_decode($inputJSON); 
+        $usuario=new UsuarioModel();
+        $response=$usuario->login($object);
+        if(isset($response) && !empty($response) && $response!=false){
+            // Datos que desea incluir en el token JWT
+            $data = [
+                'id' => $response->id,
+                'email' => $response->email,
+                'rol' => $response->rol,
+            ];
+            // Generar el token JWT 
+            $jwt_token = JWT::encode($data, $this->secret_key,'HS256');
+            $json=array(
+                'status'=>200,
+                'results'=>$jwt_token
             );
-        } else {
-            $json = array(
-                'status' => 400,
-                'results' => "No se creo el recurso"
+        }else{
+            $json=array(
+                'status'=>200,
+                'results'=>"Usuario no valido"
             );
         }
-        //Escribir respuesta JSON con código de estado HTTP
-        echo json_encode(
-            $json,
-            http_response_code($json["status"])
-        );
-
+        echo json_encode($json,
+        http_response_code($json["status"]));
+       
     }
-    //PUT actualizar
-    public function update()
-    {
-        //Obtener json enviado
-        $inputJSON = file_get_contents('php://input');
-        //Decodificar json
-        $object = json_decode($inputJSON);
-        //Instancia del modelo
-        $movie = new MovieModel();
-        //Acción del modelo a ejecutar
-        $response = $movie->update($object);
-        //Verificar respuesta
-        if (isset($response) && !empty($response)) {
-            $json = array(
-                'status' => 200,
-                'results' => "Pelicula actualizada"
+    public function create( ){
+        $inputJSON=file_get_contents('php://input');
+        $object = json_decode($inputJSON); 
+        $usuario=new UsuarioModel();
+        $response=$usuario->create($object);
+        if(isset($response) && !empty($response)){
+            $json=array(
+                'status'=>200,
+                'results'=>$response
             );
-        } else {
-            $json = array(
-                'status' => 400,
-                'results' => "No se actualizo el recurso"
+        }else{
+            $json=array(
+                'status'=>400,
+                'results'=>"Usuario No creado"
             );
         }
-        //Escribir respuesta JSON con código de estado HTTP
-        echo json_encode(
-            $json,
-            http_response_code($json["status"])
-        );
+        echo json_encode($json,
+        http_response_code($json["status"]));
+        
+    }
+    public function autorize(){
+        
+        try {
+            
+            $token = null;
+            $headers = apache_request_headers();
+            if(isset($headers['Authentication'])){
+              $matches = array();
+              preg_match('/Bearer\s(\S+)/', $headers['Authentication'], $matches);
+              if(isset($matches[1])){
+                $token = $matches[1];
+                return true;
+              }
+            } 
+            return false;
+                   
+        } catch (Exception $e) {
+            return false;
+        }
     }
 }

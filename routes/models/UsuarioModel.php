@@ -50,21 +50,46 @@ class UsuarioModel{
 		}
     }
 
+    
+    public function login($objeto) {
+        try {
+            
+			$vSql = "SELECT * from User where email='$objeto->email'";
+			
+            //Ejecutar la consulta
+			$vResultado = $this->enlace->ExecuteSQL ( $vSql);
+			if(is_object($vResultado[0])){
+				$user=$vResultado[0];
+				if(password_verify($objeto->password, $user->password))  
+                    {
+						return $this->get($user->id);
+					}
+
+			}else{
+				return false;
+			}
+           
+		} catch ( Exception $e ) {
+			die ( $e->getMessage () );
+		}
+    }
     public function create($objeto) {
         try {
-            $sql = "INSERT INTO Roles (Nombre) VALUES ('$objeto->Nombre')";
-    
-            $idRol = $this->enlace->executeSQL_DML_last($sql);
-    
-            return $this->get($idRol);
-        } catch (Exception $e) {
-            if (strpos($e->getMessage(), "Duplicate entry") !== false) {
-                // Verificar si el error es debido a la duplicación del campo "Nombre"
-                die("El Nombre del Rol ya existe. Por favor, elija un Nombre único.");
-            } else {
-                die($e->getMessage());
-            }
-        }
+			if(isset($objeto->password)&& $objeto->password!=null){
+				$crypt=password_hash($objeto->password, PASSWORD_BCRYPT);
+				$objeto->password=$crypt;
+			}
+            //Consulta sql            
+			$vSql = "Insert into Usuarios (name,email,password,rol_id)".
+			" Values ('$objeto->name','$objeto->email','$objeto->password',$objeto->rol_id)";
+			
+            //Ejecutar la consulta
+			$vResultado = $this->enlace->executeSQL_DML_last( $vSql);
+			// Retornar el objeto creado
+            return $this->get($vResultado);
+		} catch ( Exception $e ) {
+			die ( $e->getMessage () );
+		}
     }
     
 	
