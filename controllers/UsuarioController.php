@@ -148,9 +148,9 @@ class Usuario
         if(isset($response) && !empty($response) && $response!=false){
             // Datos que desea incluir en el token JWT
             $data = [
-                'id' => $response->id,
-                'email' => $response->email,
-                'rol' => $response->rol,
+                'ID' => $response->ID,
+                'CorreoElectronico' => $response->CorreroElectronico,
+                'RolId' => $response->RolId,
             ];
             // Generar el token JWT 
             $jwt_token = JWT::encode($data, $this->secret_key,'HS256');
