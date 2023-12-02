@@ -52,6 +52,22 @@ class UsuarioModel{
             }
         }
 
+        public function getAllClientes($ID){
+            try {   
+                    //Consulta sql
+                    $vSql = "SELECT Usuarios.*
+                    FROM Usuarios
+                    JOIN Roles ON Usuarios.RolId = Roles.id
+                    WHERE Roles.nombre = 'Cliente';";
+                    
+                    //Ejecutar la consulta
+                    $vResultado = $this->enlace->ExecuteSQL ( $vSql);
+                    // Retornar el objeto
+                    return $vResultado;
+                } catch ( Exception $e ) {
+                    die ( $e->getMessage () );
+                }
+            }
 
         public function getAllAdministradoresSinCentro($ID){
             try {   

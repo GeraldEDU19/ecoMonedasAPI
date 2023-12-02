@@ -14,6 +14,7 @@ INSERT INTO Roles (Nombre) VALUES ('Administrador');
 INSERT INTO Roles (Nombre) VALUES ('Cliente');
 
 
+
 /**************************************/
 /*USUARIOS*/
 INSERT INTO

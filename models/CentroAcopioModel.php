@@ -178,11 +178,34 @@ class CentroAcopioModel
 				$result = $this->enlace->executeSQL_DML($sql);
 			}
 			// Retornar el objeto
+			
 			return $result;
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
 	}
 
+
+	public function getCentroAcopioByAdministradorID($id)
+	{
+		try {
+			$result = null;
+			if (!empty($id)) {
+				$sql = "SELECT * FROM CentrosDeAcopio WHERE AdministradorID = $id";
+				$result = $this->enlace->ExecuteSQL($sql);
+
+				if (!empty($result)) {
+					$result = $result[0];
+					$result->Administrador = $this->getAdministrador($result->AdministradorID);
+					$materialesModel = new MaterialModel();
+					$result->Materiales = $materialesModel->getMaterialByCetroDeAcopio($result->ID);
+				}
+			}
+			// Retornar el objeto
+			return $result;
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+	}
 
 }

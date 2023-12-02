@@ -74,10 +74,11 @@ class CanjesMaterialesModel
         try {
             //Consulta sql
             $vSql =
-                "SELECT *
+                "SELECT CanjesMateriales.*
                 FROM CanjesMateriales
                 JOIN CentrosDeAcopio ON CanjesMateriales.CentroDeAcopioID = CentrosDeAcopio.ID
-                WHERE CentrosDeAcopio.AdministradorID = $AdministradorID";
+                WHERE CentrosDeAcopio.AdministradorID = $AdministradorID;
+                ";
 
             //Ejecutar la consulta
             $vResultado = $this->enlace->ExecuteSQL($vSql);
@@ -88,7 +89,6 @@ class CanjesMaterialesModel
             else {
                 $vResultado = [];
             }
-            // Retornar el objeto
             return $vResultado;
         } catch (Exception $e) {
             die($e->getMessage());
@@ -116,34 +116,32 @@ class CanjesMaterialesModel
 
 
 
-    public function create($objeto)
-    {
-        try {
-            //Consulta sql
-            //Identificador autoincrementable
+    public function createCanje($objeto)
+{
+    try {
+        // Consulta para crear el registro de canje de materiales
+        $sqlCanje = "INSERT INTO CanjesMateriales (ClienteID, CentroDeAcopioID, FechaCanje, TotalEcoMonedas) 
+            VALUES ('$objeto->Cliente', '$objeto->CentroDeAcopio', NOW(), '$objeto->total')";
+        
+        // Ejecutar la consulta para el registro de canje de materiales
+        // Obtener el ID del canje
+        $idCanje = $this->enlace->executeSQL_DML_last($sqlCanje);
 
-            $vSql = "Insert into genre (title) Values ('$objeto->title')";
-
-            //Ejecutar la consulta
-            $vResultado = $this->enlace->executeSQL_DML_last($vSql);
-            // Retornar el objeto creado
-            return $this->get($vResultado);
-        } catch (Exception $e) {
-            die($e->getMessage());
+        // Insertar los detalles del canje de materiales
+        if ($idCanje) {
+            foreach ($objeto->Detalles->materiales as $material) {
+                $detalleCanjeSQL = "INSERT INTO DetalleCanjesMateriales (CanjeID, MaterialID, Cantidad, SubTotalEcoMonedas) 
+                                    VALUES ('$idCanje', '$material->material', '$material->cantidad', '$material->subTotalEcoMonedas')";
+                $this->enlace->executeSQL_DML($detalleCanjeSQL);
+            }
         }
-    }
-    public function update($objeto)
-    {
-        try {
-            //Consulta sql
-            $vSql = "Update genre SET title ='$objeto->title' Where id=$objeto->id";
 
-            //Ejecutar la consulta
-            $vResultado = $this->enlace->executeSQL_DML($vSql);
-            // Retornar el objeto actualizado
-            return $this->get($objeto->id);
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
+        // Devolver el ID del canje de materiales creado
+        return $idCanje;
+    } catch (Exception $e) {
+        die($e->getMessage());
     }
+}
+
+
 }

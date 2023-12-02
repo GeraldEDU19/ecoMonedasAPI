@@ -81,7 +81,7 @@ class CanjesMaterialesModel
 
             //Ejecutar la consulta
             $vResultado = $this->enlace->ExecuteSQL($vSql);
-
+ 
             if (!empty($vResultado))
                 foreach ($vResultado as &$element)
                     $element = $this->setDetailCanjesMateriales($element);

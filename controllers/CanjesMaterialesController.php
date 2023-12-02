@@ -58,67 +58,28 @@ class CanjesMateriales{
     }
 
     
-    public function getGenreMovie($id){
-        $genero=new GenreModel();
-        $response=$genero->getGenreMovie($id);
-        //Si hay respuesta
-        if(isset($response) && !empty($response)){
-            //Armar el json
-            $json=array(
-                'status'=>200,
-                'results'=>$response
+
+    public function create() {
+        $inputJSON = file_get_contents('php://input');
+        $object = json_decode($inputJSON);
+
+        $canje = new CanjesMaterialesModel();
+        $response = $canje->createCanje($object);
+
+        if (!empty($response)) {
+            $json = array(
+                'status' => 201,
+                'results' => 'El canje ha sido creado'
             );
-        }else{
-            $json=array(
-                'status'=>400,
-                'results'=>"No hay registros"
-            );
-        }
-        echo json_encode($json,
-                http_response_code($json["status"])
-            );
-    }
-    public function getMoviesbyGenre($param){
-        $genero=new GenreModel();
-        $response=$genero->getMoviesbyGenre($param);
-        //Si hay respuesta
-        if(isset($response) && !empty($response)){
-            //Armar el json
-            $json=array(
-                'status'=>200,
-                'results'=>$response
-            );
-        }else{
-            $json=array(
-                'status'=>400,
-                'results'=>"No hay registros"
+        } else {
+            $json = array(
+                'status' => 400,
+                'results' => "No se creó el recurso"
             );
         }
-        echo json_encode($json,
-                http_response_code($json["status"])
-            );
-    }
-    public function create( ){
-        $inputJSON=file_get_contents('php://input');
-        $object = json_decode($inputJSON); 
-        $genero=new GenreModel();
-        $response=$genero->create($object);
-        if(isset($response) && !empty($response)){
-            $json=array(
-                'status'=>200,
-                'total'=>count($response),
-                'results'=>$response[0]
-            );
-        }else{
-            $json=array(
-                'status'=>400,
-                'total'=>0,
-                'results'=>"No hay registros"
-            );
-        }
-        echo json_encode($json,
-        http_response_code($json["status"]));
-        
+
+        http_response_code($json["status"]);
+        echo json_encode($json);
     }
     public function update(){
         $inputJSON=file_get_contents('php://input');
