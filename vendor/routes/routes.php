@@ -30,7 +30,7 @@ if (count($routesArray) > 1 && isset($_SERVER['REQUEST_METHOD'])) {
                     $action = "index";
                     break;
                 case 'POST':
-                    $action = ($routesArray[3]==='login')?'login': 'create';
+                    $action = "create";
                     break;
                 case 'PUT':
                 case 'PATCH':
@@ -52,7 +52,7 @@ if (count($routesArray) > 1 && isset($_SERVER['REQUEST_METHOD'])) {
                         $response->$action($param);
                         break;
                     case 'POST':
-                        $action = ($routesArray[3]==='login')?'login': 'create';
+                        $action = "create";
                         $response->$action();
                         break;
                     case 'PUT':

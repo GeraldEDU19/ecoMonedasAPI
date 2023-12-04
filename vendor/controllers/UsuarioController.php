@@ -138,48 +138,37 @@ class Usuario
         ); 
     }
     //POST Crear
-    public function login()
-    {
-        try {
-            $inputJSON = file_get_contents('php://input');
-            $object = json_decode($inputJSON);
-
-            if (!is_object($object)) {
-                throw new Exception("Invalid JSON data");
-            }
-
-            $usuario = new UsuarioModel();
-            $response = $usuario->login($object);
-
-            if ($response !== false && isset($response[0]) && is_object($response[0])) {
-                $data = [
-                    'ID' => $response[0]->ID,
-                    'CorreoElectronico' => $response[0]->CorreoElectronico,
-                    'RolId' => $response[0]->RolId,
-                ];
-
-                $jwt_token = JWT::encode($data, $this->secret_key, 'HS256');
-
-                $json = [
-                    'status' => 200,
-                    'results' => $jwt_token,
-                ];
-            } else {
-                $json = [
-                    'status' => 200,
-                    'results' => "Usuario no válido",
-                ];
-            }
-
-            echo json_encode($json, http_response_code($json["status"]));
-
-        } catch (Exception $e) {
-            $json = [
-                'status' => 500,
-                'results' => "Error interno del servidor: " . $e->getMessage(),
+    public function login(){
+        
+        $inputJSON=file_get_contents('php://input');
+        $object = json_decode($inputJSON); 
+        $usuario=new UsuarioModel();
+        $response=$usuario->login($object);
+         if(isset($response) && !empty($response) && $response!=false){
+            // Datos que desea incluir en el token JWT
+          $data = [
+                'ID' => $response->ID,
+                'CorreoElectronico' => $response->CorreoElectronico,
+                'RolId' => $response->RolId,
             ];
-            echo json_encode($json, http_response_code($json["status"]));
+            // Generar el token JWT 
+            $jwt_token = JWT::encode($data, $this->secret_key,'HS256');
+            $json=array(
+                'status'=>200,
+                'results'=>$jwt_token
+            );
+        }else{
+            $json=array(
+                'status'=>200,
+                'results'=>"Usuario no valido"
+            );
         }
+        echo json_encode($json,
+        http_response_code($json["status"]));
+           $json=array(
+                'status'=>200,
+                'results'=>"Usuario no valido"
+            );
     }
     public function create( ){
         $inputJSON=file_get_contents('php://input');

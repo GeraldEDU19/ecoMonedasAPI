@@ -92,36 +92,35 @@ class UsuarioModel{
 
     public function login($objeto) {
         try {
-            $correoElectronico = $objeto->CorreoElectronico;
-            $vSql = "SELECT * FROM Usuarios WHERE CorreoElectronico='$correoElectronico'";
-            $vResultado = $this->enlace->executeSQL($vSql);
-    
-            if (!empty($vResultado) && is_array($vResultado)) {
-                $user = (object)$vResultado[0];
-    
-                // Verificar si el usuario tiene la propiedad Contraseña y si coincide
-                if (isset($user->Contrasenna) && password_verify($objeto->Contrasenna, $user->Contrasenna)) {
-                    return $this->get($user->ID);
-                } else {
-                    return false;
-                }
-            } else {
+            
+            $vSql = "SELECT * from Usuarios where CorreoElectronico='$objeto->CorreoElectronico'";
+            
+            //Ejecutar la consulta
+            $vResultado = $this->enlace->ExecuteSQL ( $vSql);
+            if(is_object($vResultado[0])){
+                $user=$vResultado[0];
+                if(password_verify($objeto->Contraseña, $user->Contraseña))  
+                    {
+                        return $this->get($user->ID);
+                    }
+
+            }else{
                 return false;
             }
-        } catch (Exception $e) {
-            die($e->getMessage());
+           
+        } catch ( Exception $e ) {
+            die ( $e->getMessage () );
         }
     }
-    
     public function create($objeto) {
         try {
-            if(isset($objeto->Contrasenna)&& $objeto->Contrasenna!=null){
-                $crypt=password_hash($objeto->Contrasenna, PASSWORD_BCRYPT);
-                $objeto->Contrasenna=$crypt;
+            if(isset($objeto->password)&& $objeto->password!=null){
+                $crypt=password_hash($objeto->password, PASSWORD_BCRYPT);
+                $objeto->password=$crypt;
             }
             //Consulta sql            
             $vSql = "Insert into Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contraseña, RolId)".
-            " Values ('$objeto->CorreoElectronico','$objeto->PrimerNombre','$objeto->SegundoNombre','$objeto->PrimerApellido','$objeto->SegundoApellido','$objeto->Identificacion','$objeto->DireccionProvincia', '$objeto->DireccionCanton', '$objeto->DireccionDistrito', '$objeto->Telefono', '$objeto->Contrasenna', '$objeto->RolId')";
+            " Values ('$objeto->CorreoElectronico','$objeto->PrimerNombre','$objeto->SegundoNombre','$objeto->PrimerApellido','$objeto->SegundoApellido','$objeto->Identificacion','$objeto->DireccionProvincia', '$objeto->DireccionCanton', '$objeto->DireccionDistrito', '$objeto->Telefono', '$objeto->Contraseña', '$objeto->RolId')";
             
             //Ejecutar la consulta
             $vResultado = $this->enlace->executeSQL_DML_last( $vSql);
