@@ -53,6 +53,8 @@ if (count($routesArray) > 1 && isset($_SERVER['REQUEST_METHOD'])) {
                         break;
                     case 'POST':
                         $action = ($routesArray[3]==='login')?'login': 'create';
+                        if($routesArray[3]==='changePassword') $action = 'changePassword';
+                        
                         $response->$action();
                         break;
                     case 'PUT':

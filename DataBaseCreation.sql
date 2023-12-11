@@ -33,7 +33,7 @@ CREATE TABLE
         DireccionCanton VARCHAR(50),
         DireccionDistrito VARCHAR(50),
         Telefono VARCHAR(20),
-        Contraseña VARCHAR(255) NOT NULL,
+        Contrasenna VARCHAR(255) NOT NULL,
         RolId INT,
         FOREIGN KEY (RolId) REFERENCES Roles(ID)
     );

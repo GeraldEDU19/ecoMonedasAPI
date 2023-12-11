@@ -2,8 +2,10 @@
 
 class Imagen {
     public function get($param) {
-        // Construye la ruta completa de la imagen
-        $rutaImagen = __DIR__ . '/../assets/material_images/' . $param;
+        $materialModel = new MaterialModel();
+        $material = ($materialModel->get($param))[0];
+
+        $rutaImagen = __DIR__ . '/../assets/material_images/' . $material->Imagen;
     
         // Verifica si el archivo existe
         if (file_exists($rutaImagen)) {

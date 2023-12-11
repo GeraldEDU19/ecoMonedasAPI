@@ -54,6 +54,29 @@ class Usuario
         );
     }
 
+    public function getAllClientes($ID)
+    {
+        //Instancia del modelo
+        $usuario = new UsuarioModel();
+        //Acción del modelo a ejecutar
+        $response = $usuario->getAllClientes($ID);
+        if (isset($response) && !empty($response)) {
+            $json = array(
+                'status' => 200,
+                'results' => $response
+            );
+        } else {
+            $json = array(
+                'status' => 400,
+                'results' => "No hay registros"
+            );
+        }
+        echo json_encode(
+            $json,
+            http_response_code($json["status"])
+        );
+    }
+
     public function getAllAdministradoresSinCentro($ID)
     {
         //Instancia del modelo
@@ -151,11 +174,27 @@ class Usuario
             $usuario = new UsuarioModel();
             $response = $usuario->login($object);
 
+            
+
             if ($response !== false && isset($response[0]) && is_object($response[0])) {
+                $rolModel = new RolModel();
+                $rol = ($rolModel->get($response[0]->RolId))[0];
+
+
                 $data = [
                     'ID' => $response[0]->ID,
                     'CorreoElectronico' => $response[0]->CorreoElectronico,
                     'RolId' => $response[0]->RolId,
+                    'PrimerNombre' => $response[0]->PrimerNombre,
+                    'SegundoNombre' => $response[0]->SegundoNombre,
+                    'PrimerApellido' => $response[0]->PrimerApellido,
+                    'SegundoApellido' => $response[0]->SegundoApellido,
+                    'Identificacion' => $response[0]->Identificacion,
+                    'DireccionProvincia' => $response[0]->DireccionProvincia,
+                    'DireccionCanton' => $response[0]->DireccionCanton,
+                    'DireccionDistrito' => $response[0]->DireccionDistrito,
+                    'Telefono' => $response[0]->Telefono,
+                    'Rol' => $rol->Nombre
                 ];
 
                 $jwt_token = JWT::encode($data, $this->secret_key, 'HS256');
@@ -199,8 +238,29 @@ class Usuario
         }
         echo json_encode($json,
         http_response_code($json["status"]));
-        
     }
+
+    public function changePassword(){
+        $inputJSON=file_get_contents('php://input');
+        $object = json_decode($inputJSON); 
+        $usuario=new UsuarioModel();
+        $response=$usuario->changePassword($object);
+        if(isset($response)){
+            $json=array(
+                'status'=>200,
+                'results'=>$response
+            );
+        }else{
+            $json=array(
+                'status'=>400,
+                'results'=>"Usuario No creado"
+            );
+        }
+        echo json_encode($json,
+        http_response_code($json["status"]));
+    }
+
+
     public function autorize(){
         
         try {

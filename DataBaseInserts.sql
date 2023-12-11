@@ -29,7 +29,7 @@ INSERT INTO
         DireccionCanton,
         DireccionDistrito,
         Telefono,
-        Contraseña,
+        Contrasenna,
         RolId
     )
 VALUES (
@@ -58,7 +58,7 @@ VALUES (
     DireccionCanton,
     DireccionDistrito,
     Telefono,
-    Contraseña,
+    Contrasenna,
     RolId
 )
 VALUES (
@@ -87,7 +87,7 @@ INSERT INTO Usuarios (
     DireccionCanton,
     DireccionDistrito,
     Telefono,
-    Contraseña,
+    Contrasenna,
     RolId
 )
 VALUES (
@@ -116,7 +116,7 @@ INSERT INTO Usuarios (
     DireccionCanton,
     DireccionDistrito,
     Telefono,
-    Contraseña,
+    Contrasenna,
     RolId
 )
 VALUES (
@@ -145,7 +145,7 @@ INSERT INTO Usuarios (
     DireccionCanton,
     DireccionDistrito,
     Telefono,
-    Contraseña,
+    Contrasenna,
     RolId
 )
 VALUES (
@@ -174,7 +174,7 @@ INSERT INTO Usuarios (
     DireccionCanton,
     DireccionDistrito,
     Telefono,
-    Contraseña,
+    Contrasenna,
     RolId
 )
 VALUES (
@@ -203,7 +203,7 @@ INSERT INTO Usuarios (
     DireccionCanton,
     DireccionDistrito,
     Telefono,
-    Contraseña,
+    Contrasenna,
     RolId
 )
 VALUES (
@@ -233,7 +233,7 @@ INSERT INTO Usuarios (
     DireccionCanton,
     DireccionDistrito,
     Telefono,
-    Contraseña,
+    Contrasenna,
     RolId
 )
 VALUES (
@@ -262,7 +262,7 @@ INSERT INTO Usuarios (
     DireccionCanton,
     DireccionDistrito,
     Telefono,
-    Contraseña,
+    Contrasenna,
     RolId
 )
 VALUES (
@@ -291,7 +291,7 @@ INSERT INTO Usuarios (
     DireccionCanton,
     DireccionDistrito,
     Telefono,
-    Contraseña,
+    Contrasenna,
     RolId
 )
 VALUES (
@@ -320,7 +320,7 @@ INSERT INTO Usuarios (
     DireccionCanton,
     DireccionDistrito,
     Telefono,
-    Contraseña,
+    Contrasenna,
     RolId
 )
 VALUES (
@@ -349,7 +349,7 @@ INSERT INTO Usuarios (
     DireccionCanton,
     DireccionDistrito,
     Telefono,
-    Contraseña,
+    Contrasenna,
     RolId
 )
 VALUES (
@@ -368,17 +368,17 @@ VALUES (
 );
 
 -- Insertar un usuario administrador
-INSERT INTO Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contraseña, RolId)
+INSERT INTO Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contrasenna, RolId)
 VALUES ('admin@example2.com', 'Floriberto', '', 'Jimenez', '', '123456789', 'Provincia', 'Canton', 'Distrito', '1234567890', 'contrasena123', (SELECT ID FROM Roles WHERE Nombre = 'Administrador'));
 
 
-INSERT INTO Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contraseña, RolId)
+INSERT INTO Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contrasenna, RolId)
 VALUES ('admin@example3.com', 'Angel', '', 'Prado', '', '123456789', 'Provincia', 'Canton', 'Distrito', '1234567890', 'contrasena123', (SELECT ID FROM Roles WHERE Nombre = 'Administrador'));
 
 
 
 -- Insertar un usuario no administrador
-INSERT INTO Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contraseña, RolId)
+INSERT INTO Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contrasenna, RolId)
 VALUES ('usuario1@example.com', 'Usuario', '', 'Uno', '', '987654321', 'Provincia', 'Canton', 'Distrito', '9876543210', 'contrasena456', (SELECT ID FROM Roles WHERE Nombre = 'OtroRol'));
 
 
@@ -636,3 +636,6 @@ VALUES (14, 2, 4, 7.50);
 
 -- Detalles del Canje 3
 
+
+
+Select * from usuarios

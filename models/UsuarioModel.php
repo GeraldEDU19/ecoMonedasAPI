@@ -25,10 +25,8 @@ class UsuarioModel{
     try {   
             //Consulta sql
             $vSql = "SELECT * FROM Usuarios where ID=$id";
-            
-            //Ejecutar la consulta
+
             $vResultado = $this->enlace->ExecuteSQL ( $vSql);
-            // Retornar el objeto
             return $vResultado;
         } catch ( Exception $e ) {
             die ( $e->getMessage () );
@@ -37,20 +35,29 @@ class UsuarioModel{
 
     public function getAllAdministradores($ID){
         try {   
-                //Consulta sql
                 $vSql = "SELECT Usuarios.*
                 FROM Usuarios
                 JOIN Roles ON Usuarios.RolId = Roles.id
                 WHERE Roles.nombre = 'Administrador';";
-                
-                //Ejecutar la consulta
                 $vResultado = $this->enlace->ExecuteSQL ( $vSql);
-                // Retornar el objeto
                 return $vResultado;
             } catch ( Exception $e ) {
                 die ( $e->getMessage () );
             }
         }
+
+        public function getAllClientes($ID){
+            try {   
+                    $vSql = "SELECT Usuarios.*
+                    FROM Usuarios
+                    JOIN Roles ON Usuarios.RolId = Roles.id
+                    WHERE Roles.nombre = 'Cliente';";
+                    $vResultado = $this->enlace->ExecuteSQL ( $vSql);
+                    return $vResultado;
+                } catch ( Exception $e ) {
+                    die ( $e->getMessage () );
+                }
+            }
 
         public function getAllAdministradoresSinCentro($ID){
             try {   
@@ -98,8 +105,7 @@ class UsuarioModel{
     
             if (!empty($vResultado) && is_array($vResultado)) {
                 $user = (object)$vResultado[0];
-    
-                // Verificar si el usuario tiene la propiedad Contraseña y si coincide
+
                 if (isset($user->Contrasenna) && password_verify($objeto->Contrasenna, $user->Contrasenna)) {
                     return $this->get($user->ID);
                 } else {
@@ -118,19 +124,33 @@ class UsuarioModel{
             if(isset($objeto->Contrasenna)&& $objeto->Contrasenna!=null){
                 $crypt=password_hash($objeto->Contrasenna, PASSWORD_BCRYPT);
                 $objeto->Contrasenna=$crypt;
-            }
-            //Consulta sql            
-            $vSql = "Insert into Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contraseña, RolId)".
+            }           
+            $vSql = "Insert into Usuarios (CorreoElectronico, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Identificacion, DireccionProvincia, DireccionCanton, DireccionDistrito, Telefono, Contrasenna, RolId)".
             " Values ('$objeto->CorreoElectronico','$objeto->PrimerNombre','$objeto->SegundoNombre','$objeto->PrimerApellido','$objeto->SegundoApellido','$objeto->Identificacion','$objeto->DireccionProvincia', '$objeto->DireccionCanton', '$objeto->DireccionDistrito', '$objeto->Telefono', '$objeto->Contrasenna', '$objeto->RolId')";
-            
-            //Ejecutar la consulta
+
             $vResultado = $this->enlace->executeSQL_DML_last( $vSql);
-            // Retornar el objeto creado
             return $this->get($vResultado);
         } catch ( Exception $e ) {
             die ( $e->getMessage () );
         }
     }
+
+    public function changePassword($objeto) {
+        try {
+            if(isset($objeto->Contrasenna)&& $objeto->Contrasenna!=null){
+                $crypt=password_hash($objeto->Contrasenna, PASSWORD_BCRYPT);
+                $objeto->Contrasenna=$crypt;
+            }           
+            $vSql = "UPDATE Usuarios SET Contrasenna = '$objeto->Contrasenna' WHERE ID = '$objeto->ID'";
+
+            $vResultado = $this->enlace->executeSQL_DML( $vSql);
+            return $this->get($vResultado);
+        } catch ( Exception $e ) {
+            die ( $e->getMessage () );
+        }
+    }
+
+
     
     
 }
